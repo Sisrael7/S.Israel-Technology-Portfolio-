@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephen Israel — Coursework Portfolio</title>
+<style>
+  :root{
+    --bg:#0b1120; --panel:#111a2e; --panel2:#0f1727; --ink:#e8eef9;
+    --muted:#9fb0cc; --line:#22304d; --accent:#4f9cff; --accent2:#36d399;
+    --chip:#16233c; --chipink:#bcd2f5;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 22px;}
+
+  /* Header */
+  header.hero{
+    background:linear-gradient(160deg,#0d1830 0%,#0b1120 70%);
+    border-bottom:1px solid var(--line); padding:54px 0 40px;
+  }
+  .eyebrow{color:var(--accent2); font-weight:600; letter-spacing:.12em; text-transform:uppercase; font-size:12px; margin:0 0 10px;}
+  h1{font-size:42px; line-height:1.1; margin:0 0 8px; font-weight:800; letter-spacing:-.01em;}
+  .role{font-size:18px; color:var(--muted); margin:0 0 18px; font-weight:500;}
+  .summary{max-width:760px; color:#cdd9ef; font-size:16px;}
+  .meta{display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:20px; font-size:14px; color:var(--muted);}
+  .meta span{display:inline-flex; align-items:center; gap:6px;}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--accent2); display:inline-block;}
+
+  /* Nav */
+  nav.toc{position:sticky; top:0; z-index:10; background:rgba(11,17,32,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  nav.toc .wrap{display:flex; flex-wrap:wrap; gap:6px; padding-top:10px; padding-bottom:10px;}
+  nav.toc a{font-size:13px; color:var(--muted); padding:6px 12px; border-radius:20px; border:1px solid transparent;}
+  nav.toc a:hover{color:var(--ink); border-color:var(--line); background:var(--chip);}
+
+  /* Sections */
+  section{padding:44px 0 8px;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .sec-head h2{font-size:26px; margin:0; font-weight:750; letter-spacing:-.01em;}
+  .sec-sub{color:var(--muted); font-size:15px; margin:0 0 22px;}
+
+  /* Skills grid */
+  .skills{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;}
+  .skillcard{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px;}
+  .skillcard h3{margin:0 0 12px; font-size:14px; text-transform:uppercase; letter-spacing:.08em; color:var(--accent);}
+  .chips{display:flex; flex-wrap:wrap; gap:7px;}
+  .chip{background:var(--chip); color:var(--chipink); border:1px solid var(--line); padding:5px 11px; border-radius:18px; font-size:13px;}
+
+  /* Course cards */
+  .course{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin-bottom:18px;}
+  .course-top{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; margin-bottom:4px;}
+  .course-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; font-weight:700; color:var(--accent2); background:var(--panel2); border:1px solid var(--line); padding:3px 9px; border-radius:7px;}
+  .course-title{font-size:20px; font-weight:700; margin:0;}
+  .course-desc{color:var(--muted); font-size:15px; margin:8px 0 16px;}
+  .proj{border-left:2px solid var(--line); padding:2px 0 2px 16px; margin:14px 0;}
+  .proj h4{margin:0 0 4px; font-size:16px; font-weight:650;}
+  .proj p{margin:0; color:#c7d3ea; font-size:14.5px;}
+  .tags{margin-top:10px; display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{font-size:12px; color:var(--chipink); background:var(--chip); border:1px solid var(--line); padding:3px 9px; border-radius:14px;}
+
+  .group-label{font-size:13px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:30px 0 14px; font-weight:600; border-bottom:1px solid var(--line); padding-bottom:8px;}
+
+  footer{border-top:1px solid var(--line); margin-top:40px; padding:28px 0 50px; color:var(--muted); font-size:14px;}
+  .note{font-size:12.5px; color:#6f819f; margin-top:8px;}
+
+
+  .repo-link{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--accent2);background:var(--panel2);border:1px solid var(--line);padding:6px 12px;border-radius:8px;margin:2px 0 4px;}
+  .repo-link:hover{border-color:var(--accent2);}
+  .hero-btn{display:inline-flex;align-items:center;gap:8px;margin-top:22px;background:var(--accent);color:#06101f;font-weight:700;padding:11px 18px;border-radius:10px;font-size:14.5px;}
+  .hero-btn:hover{filter:brightness(1.08);}
+
+  @media (max-width:600px){ h1{font-size:32px;} .sec-head h2{font-size:22px;} }
+
+  /* Print */
+  @media print{
+    :root{--bg:#fff;--panel:#fff;--panel2:#fff;--ink:#111;--muted:#444;--line:#ccc;--chip:#f1f4f9;--chipink:#1d2a44;--accent:#1b5fc4;--accent2:#0a7a52;}
+    body{background:#fff;}
+    nav.toc{display:none;}
+    header.hero{background:#fff;}
+    .course,.skillcard{break-inside:avoid; box-shadow:none;}
+    section{padding:18px 0 4px;}
+    a{color:#111;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Academic Portfolio</p>
+    <h1>Stephen Israel</h1>
+    <p class="role">Computer Science Student &middot; Senior ServiceNow Developer &middot; U.S. Air Force Veteran</p>
+    <p class="summary">
+      A working portfolio of my Computer Science coursework at Southern New Hampshire University.
+      It documents the projects I built and the skills I developed across software development, data
+      structures and algorithms, software design, databases, applied mathematics, and physics &mdash;
+      with a focus on writing clean, modular code and translating real requirements into working systems.
+    </p>
+    <div class="meta">
+      <span><span class="dot"></span>B.S. Computer Science (in progress), SNHU</span>
+      <span><span class="dot"></span>C++ &middot; Java &middot; SQL &middot; Python</span>
+      <span><span class="dot"></span><a href="mailto:stephen.israel2015@gmail.com">stephen.israel2015@gmail.com</a></span>
+    </div>
+    <a class="hero-btn" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-" target="_blank" rel="noopener">&#128187; View full source code on GitHub &rarr;</a>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#skills">Skills</a>
+    <a href="#cs">Computer Science</a>
+    <a href="#data">Databases &amp; Data</a>
+    <a href="#math">Math &amp; Science</a>
+    <a href="#comm">Writing &amp; Critical Thinking</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head"><h2>Core Skills</h2></div>
+    <p class="sec-sub">Built and reinforced across the coursework documented below.</p>
+    <div class="skills">
+      <div class="skillcard">
+        <h3>Languages</h3>
+        <div class="chips">
+          <span class="chip">C++</span><span class="chip">Java</span><span class="chip">SQL</span>
+          <span class="chip">Python</span><span class="chip">MATLAB</span><span class="chip">HTML</span>
+          <span class="chip">LaTeX</span>
+        </div>
+      </div>
+      <div class="skillcard">
+        <h3>CS Concepts</h3>
+        <div class="chips">
+          <span class="chip">Data Structures</span><span class="chip">Algorithms</span>
+          <span class="chip">OOP</span><span class="chip">Design Patterns</span>
+          <span class="chip">Big-O Analysis</span><span class="chip">File I/O</span>
+          <span class="chip">Software Design</span>
+        </div>
+      </div>
+      <div class="skillcard">
+        <h3>Engineering Practice</h3>
+        <div class="chips">
+          <span class="chip">Agile / Scrum</span><span class="chip">User Stories</span>
+          <span class="chip">Test Cases</span><span class="chip">UML</span>
+          <span class="chip">Requirements Analysis</span><span class="chip">Technical Writing</span>
+        </div>
+      </div>
+      <div class="skillcard">
+        <h3>Data &amp; Systems</h3>
+        <div class="chips">
+          <span class="chip">Relational Databases</span><span class="chip">ERD Design</span>
+          <span class="chip">Query Optimization</span><span class="chip">System Architecture</span>
+          <span class="chip">Cross-Platform Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPUTER SCIENCE -->
+  <section id="cs">
+    <div class="sec-head"><h2>Computer Science &amp; Software Development</h2></div>
+    <p class="sec-sub">Programming, algorithms, software design, and the development lifecycle.</p>
+
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">CS 300</span>
+        <h3 class="course-title">Data Structures &amp; Algorithms</h3>
+      </div>
+      <p class="course-desc">Implemented and compared the core data structures in C++, analyzing runtime trade-offs and selecting the right structure for the problem. Capstone work centered on the ABCU course-advising program.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/CS300-Data-Structures-Algorithms" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>ABCU Course Advising Program</h4>
+        <p>Designed a program that loads a comma-separated course catalog, validates each record (including verifying that every listed prerequisite actually exists), stores courses, and prints an alphanumerically ordered course list. Built and evaluated hash table, vector, and binary search tree versions to recommend the best fit.</p>
+        <div class="tags"><span class="tag">Hash Tables</span><span class="tag">Binary Search Tree</span><span class="tag">Vectors</span><span class="tag">Runtime Analysis</span></div>
+      </div>
+      <div class="proj">
+        <h4>Sorting &amp; Linked List Labs</h4>
+        <p>Implemented a singly linked list (append, prepend, search, remove, display) using pointer-based traversal and dynamic memory, and a vector-based program that sorts bid records by title using both selection sort and quicksort, including correct partition logic.</p>
+        <div class="tags"><span class="tag">Linked Lists</span><span class="tag">Quicksort</span><span class="tag">Selection Sort</span><span class="tag">Pointers &amp; Memory</span></div>
+      </div>
+    </div>
+
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">CS 230</span>
+        <h3 class="course-title">Operating Platforms &amp; Software Design</h3>
+      </div>
+      <p class="course-desc">Authored a full software design document for <em>The Gaming Room</em>, a client evaluating how to take a single-platform game to multiple platforms.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/CS230-Software-Design" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>The Gaming Room — Software Design Document</h4>
+        <p>Produced a versioned design package: executive summary, requirements, design constraints, a UML domain model, and a system architecture view. Evaluated operating platforms and delivered recommendations for a scalable, cross-platform distribution strategy.</p>
+        <div class="tags"><span class="tag">UML Domain Model</span><span class="tag">System Architecture</span><span class="tag">Design Patterns (Singleton)</span><span class="tag">Cross-Platform Analysis</span></div>
+      </div>
+    </div>
+
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">CS 250</span>
+        <h3 class="course-title">Software Development Lifecycle</h3>
+      </div>
+      <p class="course-desc">Worked through the Agile/Scrum process end to end using the SNHU Travel booking system scenario, translating business goals into deliverable software.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/CS250-Software-Development-Lifecycle" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>SNHU Travel — Agile Project</h4>
+        <p>Wrote the Agile Team Charter and business vision, broke requirements into user stories, authored test cases, and reflected on the Scrum framework versus traditional models. Connected sprint planning and roles back to delivering customer value.</p>
+        <div class="tags"><span class="tag">Scrum</span><span class="tag">User Stories</span><span class="tag">Test Cases</span><span class="tag">Team Charter</span></div>
+      </div>
+    </div>
+
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">CS 210</span>
+        <h3 class="course-title">Programming Languages (C++)</h3>
+      </div>
+      <p class="course-desc">Two applied C++ projects emphasizing clean class design, file handling, and a usable interface.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/CS210-Programming-Languages-Cpp" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>Corner Grocer — Item Tracking Program</h4>
+        <p>An item-frequency analyzer that reads a grocery transaction file, normalizes input, counts occurrences with a <code>map</code>, lets the user look up any item, prints a full frequency report and histogram, and writes a backup data file.</p>
+        <div class="tags"><span class="tag">C++ Classes</span><span class="tag">std::map</span><span class="tag">File I/O</span><span class="tag">Input Validation</span></div>
+      </div>
+      <div class="proj">
+        <h4>Airgead Banking — Investment Calculator</h4>
+        <p>An object-oriented compound-interest calculator that projects investment growth year by year, with and without recurring monthly deposits, and prints formatted year-end balance and earned-interest reports.</p>
+        <div class="tags"><span class="tag">OOP</span><span class="tag">Compound Interest Logic</span><span class="tag">Formatted Output</span></div>
+      </div>
+    </div>
+
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">IT 145</span>
+        <h3 class="course-title">Foundation in Application Development (Java)</h3>
+      </div>
+      <p class="course-desc">Introductory Java with an emphasis on object-oriented principles and design patterns.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/IT145-Java-App-Development" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>Grazioso / Global Rain Systems</h4>
+        <p>Built a pet boarding ("Pet BAG") check-in system applying encapsulation and a UML class diagram, and implemented a Singleton <code>GameService</code> with an iterator pattern to guarantee a single shared source of game state across the application.</p>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Encapsulation</span><span class="tag">Singleton Pattern</span><span class="tag">UML Class Diagram</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA -->
+  <section id="data">
+    <div class="sec-head"><h2>Databases &amp; Data</h2></div>
+    <p class="sec-sub">Relational database design and SQL against real-world business scenarios.</p>
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">DAD 220</span>
+        <h3 class="course-title">Introduction to Structured Database Environments</h3>
+      </div>
+      <p class="course-desc">Designed and queried databases for Quantigration, a fictional networking company, working in an online SQL environment.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/DAD220-Databases-SQL" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>Quantigration Database &amp; RMA Reporting</h4>
+        <p>Created database schemas and tables with SQL, populated and queried them, and built a Return Merchandise Authorization (RMA) report responding to specific manager requests &mdash; summarizing and filtering data to answer real business questions.</p>
+        <div class="tags"><span class="tag">SQL (DDL/DML)</span><span class="tag">Schema Design</span><span class="tag">ERD</span><span class="tag">Reporting Queries</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATH & SCIENCE -->
+  <section id="math">
+    <div class="sec-head"><h2>Mathematics &amp; Science</h2></div>
+    <p class="sec-sub">The quantitative foundation behind the engineering work.</p>
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">MAT 350</span>
+        <h3 class="course-title">Applied Linear Algebra</h3>
+      </div>
+      <p class="course-desc">Modeled a communications network as a system of links and capacities.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/MAT350-Linear-Algebra" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>Network Capacity &amp; Data-Rate Analysis</h4>
+        <p>Used linear algebra and MATLAB scripts to calculate data rates across each network link, compare them to recommended capacity, and recommend which links to leave unchanged versus upgrade &mdash; turning matrix math into infrastructure decisions.</p>
+        <div class="tags"><span class="tag">Linear Algebra</span><span class="tag">MATLAB</span><span class="tag">Systems of Equations</span><span class="tag">Applied Modeling</span></div>
+      </div>
+    </div>
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">PHY 150</span>
+        <h3 class="course-title">Introductory Physics</h3>
+      </div>
+      <p class="course-desc">Hands-on labs and a design project applying mechanics and energy conservation.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/PHY150-Physics" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>Roller Coaster Energy &amp; Momentum Project</h4>
+        <p>Analyzed a multi-hill coaster design, calculating kinetic energy, potential energy, and momentum across peaks and valleys and modeling a collision at the end of the ride.</p>
+        <div class="tags"><span class="tag">Energy Conservation</span><span class="tag">Momentum</span><span class="tag">Lab Analysis</span></div>
+      </div>
+      <div class="proj">
+        <h4>Newton's Second Law &amp; Momentum Labs</h4>
+        <p>Collected experimental data, computed acceleration from distance and time, and validated F = ma and conservation of momentum through structured lab reports.</p>
+        <div class="tags"><span class="tag">Experimental Method</span><span class="tag">Data Tables</span><span class="tag">Scientific Writing</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section id="comm">
+    <div class="sec-head"><h2>Writing &amp; Critical Thinking</h2></div>
+    <p class="sec-sub">Communication, ethics, and analysis &mdash; the skills that make technical work usable and responsible.</p>
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">SCS 260</span>
+        <h3 class="course-title">Social Issues &amp; Decision-Making</h3>
+      </div>
+      <p class="course-desc">Applied social-science frameworks to current issues, including the technology I work in.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/Writing-and-Ethics" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>AI Regulation &amp; Society</h4>
+        <p>Argued that AI regulation should empower humans rather than replace them, examining automation's impact on work and decision-making &mdash; and analyzed the institution of education through functionalism and conflict theory.</p>
+        <div class="tags"><span class="tag">Ethical Analysis</span><span class="tag">AI &amp; Society</span><span class="tag">Argumentative Writing</span></div>
+      </div>
+    </div>
+    <div class="course">
+      <div class="course-top">
+        <span class="course-code">ENG / HIS / HUM</span>
+        <h3 class="course-title">Research &amp; Cultural Context</h3>
+      </div>
+      <p class="course-desc">Research-driven writing across English, History, and Humanities.</p>
+      <a class="repo-link" href="https://github.com/Sisrael7/S.Israel-Technology-Portfolio-/tree/main/Writing-and-Ethics" target="_blank" rel="noopener">&#128193; View files &amp; code &rarr;</a>
+      <div class="proj">
+        <h4>Research &amp; Profile Writing</h4>
+        <p>Produced researched, source-based projects including a historical profile of Nat Turner and an analysis of the Black Lives Matter movement, practicing APA formatting, source evaluation, and clear long-form argument.</p>
+        <div class="tags"><span class="tag">Research</span><span class="tag">APA Format</span><span class="tag">Source Evaluation</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Stephen Israel</strong> &middot; Computer Science, Southern New Hampshire University<br>
+    <a href="mailto:stephen.israel2015@gmail.com">stephen.israel2015@gmail.com</a>
+    <p class="note">Portfolio of academic coursework. Source files and full project deliverables available on request. Tip: use your browser's Print &rarr; Save as PDF to export a clean copy.</p>
+  </div>
+</footer>
+
+</body>
+</html>
